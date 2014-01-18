@@ -16,9 +16,14 @@ class Poller
     @client.fetch_updates
     snaps = @client.user.snaps_received
     snaps.each do |snap|
+      if blacklisted? snap.sender
+        send_blacklist_message(snap.sender)
+        continue
+      end
+
       unless snap.status.opened? || 
-             Snap.find_by(snap_id: snap.id) || 
-             snap.duration.nil?
+             snap.duration.nil? ||
+             Snap.find_by(snap_id: snap.id)
         puts "Sender: #{snap.sender}"
         puts "Duration: #{snap.duration}"
         puts "Id: #{snap.id}"
@@ -40,5 +45,12 @@ class Poller
   rescue Exception => e
     STDERR.puts e.message
     STDERR.puts e.backtrace.join("\n")
+  end
+
+  def blacklisted?(username)
+    Blacklist.find_by(username: username).any?
+  end
+
+  def send_blacklist_mesage(username)
   end
 end
