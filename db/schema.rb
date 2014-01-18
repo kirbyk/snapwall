@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140118031310) do
+ActiveRecord::Schema.define(version: 20140118060719) do
 
   create_table "snaps", force: true do |t|
     t.string   "username"
@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(version: 20140118031310) do
     t.string   "image_content_type"
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
+    t.integer  "likes",              default: 0
   end
 
 end
