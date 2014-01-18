@@ -24,7 +24,7 @@ html, body {
   height: 100%;
 }
 
-.row {
+.tiles {
   width: 100%;
   height: 50%;
 }
@@ -112,6 +112,14 @@ button.close {
   opacity: .9;
   position: relative;
   top: 6px;
+}
+
+.flag span:hover {
+  color: #c0392b;
+}
+
+span.flagged {
+  color: #c0392b;
 }
 
 @media (max-width: 1000px){
