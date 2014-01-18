@@ -17,14 +17,15 @@ class Poller
     snaps = @client.user.snaps_received
     snaps.each do |snap|
       unless snap.status.opened? || 
-        Snap.find_by(snap_id: snap.id) || 
-        snap.duration.nil?
+             Snap.find_by(snap_id: snap.id) || 
+             snap.duration.nil?
         puts "Sender: #{snap.sender}"
         puts "Duration: #{snap.duration}"
         puts "Id: #{snap.id}"
         puts
         media_response = @client.media_for(snap.id)
         media = media_response.data[:media]
+        continue unless media.success?
         raw_bytes = media.to_s
         s = Snap.new(username: snap.sender, duration: snap.duration, snap_id: snap.id)
         s.image_bytes = raw_bytes
