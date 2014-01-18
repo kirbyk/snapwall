@@ -12,7 +12,7 @@ class SnapController < ApplicationController
       query = Snap.where('created_at > ?', THRESHOLD.ago)
     end
 
-    fake = FakeSnap.new("http://lorempixel.com/spencer/540/960/", 10)
+    fake = FakeSnap.new("http://lorempixel.com/540/960/", 10)
     
     if request.format == :html
       if query.empty?
