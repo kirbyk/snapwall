@@ -23,7 +23,6 @@ class Poller
           puts "Sender: #{snap.sender}"
           puts "Duration: #{snap.duration}"
           puts "Id: #{snap.id}"
-          puts "Status: #{snap.temp_status}"
           puts
           media_response = @client.media_for(snap.id)
           media = media_response.data[:media]

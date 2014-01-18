@@ -1,5 +1,6 @@
-PATH
-  remote: /Users/rickbutton/code/snapcat
+GIT
+  remote: git://github.com/rickbutton/snapcat.git
+  revision: e4bf4ea201b9512873fead38c121a9902d586f4c
   specs:
     snapcat (0.1.0)
       httmultiparty (~> 0.3)
