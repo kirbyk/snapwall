@@ -28,6 +28,7 @@ var swapImage = function(el, snap){
   el.css('background-image', 'url(' + snap.url + ')');
   animation = animations[Math.floor(Math.random() * animations.length)];
   el.addClass('animated ' + animation);
+  el.children("div.flag").children("span").removeClass("flagged");
   
   setTimeout(function() {
     el.removeClass('animated ' + animation);
@@ -36,13 +37,11 @@ var swapImage = function(el, snap){
 
   var oldId = el.attr('data-id');
 
-  console.log("removing old id " + oldId);
   imageIds = $.grep(imageIds, function(value) {
     return value != oldId;
   });
 
   if (snap.id != 0) {
-    console.log("adding new id " + snap.id);
     imageIds.push(snap.id);
   }
   el.attr('data-id', snap.id);
@@ -61,7 +60,6 @@ var intro = function(){
     if (i > numSnaps) {
       return;
     }
-    console.log("loading " + i);
 
     getSnap((function(index) {
       return function(snap) {
@@ -74,7 +72,6 @@ var intro = function(){
 }
 
 var getSnap = function(callback){
-console.log(imageIds);
   var request = $.ajax({
     url: "/snap.json?" + Math.floor(5004567800*Math.random()) + "&not=" + imageIds.join(","),
     type: "GET"
@@ -130,8 +127,22 @@ var modal = function(){
   }
 }
 
+var setupFlags = function() {
+  $(".flag").click(function() {
+    if (!$(this).hasClass("flagged")) {
+      var id = $(this).parent().attr('data-id');
+      $.ajax({
+          url: "/snap/" + id + "/flag",
+          type: "GET"
+      })
+      $(this).children("span").addClass("flagged")
+    }
+  });
+}
+
 $(function(){
   modal();
+  setupFlags();
   intro();
   setTimeout(processQueue, 100);
 });
