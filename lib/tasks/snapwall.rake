@@ -12,15 +12,39 @@ class Poller
     @client.login(@pass)
     puts "Logged in!"
 
-    while true
+    loop do
       puts "Fetching updates"
       @client.fetch_updates
-      puts @client.user.snaps_received.map(&:id).join(", ")
+      snaps = @client.user.snaps_received
+      snaps.each do |snap|
+        unless snap.status.opened? || 
+               Snap.find_by(snap_id: snap.id) || 
+               snap.duration.nil?
+          puts "Sender: #{snap.sender}"
+          puts "Duration: #{snap.duration}"
+          puts "Id: #{snap.id}"
+          puts "Status: #{snap.temp_status}"
+          puts
+          media_response = @client.media_for(snap.id)
+          media = media_response.data[:media]
+          raw_bytes = media.to_s
+          s = Snap.new(username: snap.sender, duration: snap.duration, snap_id: snap.id)
+          s.image_bytes = raw_bytes
+          s.image_name = "#{snap.id}.jpg"
+          s.image_content_type = "image/jpeg"
+          if s.save
+            @client.view snap.id
+          end
+        end
+      end
       sleep 3
     end
+  rescue Exception => e
+    STDERR.puts e.message
+    STDERR.puts e.backtrace.join("\n")
   end
 end
 
-task :poll do
+task poll: :environment do
   Poller.new(ENV['USER'], ENV['PASS']).poll
 end

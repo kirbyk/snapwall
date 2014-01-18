@@ -1,6 +1,5 @@
-GIT
-  remote: git://github.com/rickbutton/snapcat.git
-  revision: 5653357dd345cfe201569de524aff00ced65cb58
+PATH
+  remote: /Users/rickbutton/code/snapcat
   specs:
     snapcat (0.1.0)
       httmultiparty (~> 0.3)
@@ -36,6 +35,10 @@ GEM
     arel (4.0.1)
     atomic (1.1.14)
     builder (3.1.4)
+    climate_control (0.0.3)
+      activesupport (>= 3.0)
+    cocaine (0.5.3)
+      climate_control (>= 0.0.3, < 1.0)
     coffee-rails (4.0.1)
       coffee-script (>= 2.2.0)
       railties (>= 4.0.0, < 5.0)
@@ -73,6 +76,11 @@ GEM
     multi_json (1.8.4)
     multi_xml (0.5.5)
     multipart-post (2.0.0)
+    paperclip (3.5.2)
+      activemodel (>= 3.0.0)
+      activesupport (>= 3.0.0)
+      cocaine (~> 0.5.3)
+      mime-types
     pg (0.17.1)
     polyglot (0.3.3)
     rack (1.5.2)
@@ -140,6 +148,7 @@ DEPENDENCIES
   high_voltage
   jbuilder (~> 1.2)
   jquery-rails
+  paperclip
   pg
   rails (= 4.0.1)
   rails_12factor
