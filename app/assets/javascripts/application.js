@@ -18,11 +18,18 @@
 imageIds = [];
 numSnaps = 8;
 swapQueue = [];
+animations = ['flipInX', 'flipInY'];
+//animations = ['fadeInUp'];
 
 var swapImage = function(el, snap){
   el.children('.time').children('span').html(snap.duration);
-  // el.children('img').attr('src',snap.url);
-  el.css("background-image", "url(" + snap.url + ")");
+  el.css('background-image', 'url(' + snap.url + ')');
+  animation = animations[Math.floor(Math.random() * animations.length)];
+  el.addClass('animated ' + animation);
+  
+  setTimeout(function() {
+    el.removeClass('animated ' + animation);
+  }, 1000);
   countDown(el, snap.duration);
 
   var oldId = el.attr('data-id');
@@ -35,8 +42,6 @@ var swapImage = function(el, snap){
   if (snap.id != 0 && exists < 0) {
     imageIds.push(snap.id);
   }
-  
-  el.attr('data-id',snap.id);
 }
 
 var createImage = function(el, snap){
@@ -81,6 +86,9 @@ var processQueue = function() {
       el = swapQueue.pop();
       getSnap((function(tile) {
         return function(snap) {
+          $('<img/>').attr('src', snap.url).load(function() {
+            $(this).remove(); // prevent memory leaks as @benweet suggested
+          });
           swapImage(tile, snap);
           setTimeout(processQueue, 100);
         }
