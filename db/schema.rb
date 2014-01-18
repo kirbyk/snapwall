@@ -50,10 +50,4 @@ ActiveRecord::Schema.define(version: 20140118173340) do
     t.integer  "flags",              default: 0
   end
 
-  create_table "warned_users", force: true do |t|
-    t.string   "username"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
 end

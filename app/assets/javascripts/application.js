@@ -12,6 +12,8 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery.cookie
+//= require bootstrap
 //= require turbolinks
 //= require_tree .
 
@@ -119,10 +121,18 @@ var countDown = function(el, duration){
     var counter=setInterval(timer, 1000);
 }
 
+var modal = function(){
+  if ($.cookie('snapwall') == null){
+    $.cookie('snapwall', Math.floor(Math.random()*2345678));
+    $('#myModal').modal();
+  }else{
+    console.log('NOPE');
+  }
+}
 
 $(function(){
+  modal();
   intro();
   setTimeout(processQueue, 100);
-  // ids = getIds();
 });
 
