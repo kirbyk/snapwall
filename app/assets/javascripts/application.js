@@ -120,7 +120,22 @@ var countDown = function(el, duration){
 }
 
 
+var setupFlags = function() {
+  $(".flag").click(function() {
+    if (!$(this).hasClass("flagged")) {
+      var id = $(this).parent().attr('data-id');
+      $.ajax({
+          url: "/snap/" + id + "/flag",
+          type: "GET"
+      })
+      $(this).children("span").addClass("flagged")
+    }
+  });
+}
+
 $(function(){
+  modal();
+  setupFlags();
   intro();
   setTimeout(processQueue, 100);
   // ids = getIds();

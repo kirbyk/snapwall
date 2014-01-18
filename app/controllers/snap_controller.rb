@@ -34,9 +34,10 @@ class SnapController < ApplicationController
   end
 
   def flag
-    snap = Snap.find_by!(params[:id])
+    snap = Snap.find(params[:id])
     snap.flags += 1
     snap.save
+    binding.pry
     if snap.flags == 10
       Blacklist.create(username: snap.username)
       Delayed::Job.enqueue BlacklistMessageJob.new(snap.username)
