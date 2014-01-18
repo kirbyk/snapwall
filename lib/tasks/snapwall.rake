@@ -6,23 +6,17 @@ class Poller
   end
 
   def poll
-    begin
-      puts "Starting poller"
-      @client = Snapcat::Client.new(@user)
-      puts "Logging in with username #{@user}"
-      @client.login(@pass)
-      puts "Logged in!"
+    puts "Starting poller"
+    @client = Snapcat::Client.new(@user)
+    puts "Logging in with username #{@user}"
+    @client.login(@pass)
+    puts "Logged in!"
 
-      while true
-        puts "Fetching updates"
-        @client.fetch_updates
-        puts @client.user.snaps_received.map(&:id).join(", ")
-        sleep 5
-      end
-    rescue
-      puts $!, $@
-      sleep 5
-      poll
+    while true
+      puts "Fetching updates"
+      @client.fetch_updates
+      puts @client.user.snaps_received.map(&:id).join(", ")
+      sleep 3
     end
   end
 end
