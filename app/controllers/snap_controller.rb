@@ -28,4 +28,11 @@ class SnapController < ApplicationController
       end
     end
   end
+
+  def like
+    snap = Snap.find_by!(params[:id])
+    snap.likes += 1
+    snap.save
+    render nothing: true
+  end
 end
