@@ -25,7 +25,7 @@ class Poller
         puts
         media_response = @client.media_for(snap.id)
         media = media_response.data[:media]
-        continue unless media.success?
+        continue unless media_response.success?
         raw_bytes = media.to_s
         s = Snap.new(username: snap.sender, duration: snap.duration, snap_id: snap.id)
         s.image_bytes = raw_bytes
