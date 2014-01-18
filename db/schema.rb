@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140118163957) do
+ActiveRecord::Schema.define(version: 20140118173340) do
 
   create_table "blacklists", force: true do |t|
     t.string   "username"
@@ -47,6 +47,13 @@ ActiveRecord::Schema.define(version: 20140118163957) do
     t.datetime "image_updated_at"
     t.boolean  "sent_best_of"
     t.integer  "likes",              default: 0
+    t.integer  "flags",              default: 0
+  end
+
+  create_table "warned_users", force: true do |t|
+    t.string   "username"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
 end
