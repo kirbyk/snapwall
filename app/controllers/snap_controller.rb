@@ -19,7 +19,7 @@ class SnapController < ApplicationController
       if query.empty?
         @snaps = [fake]*8
       else
-        @snaps = query.limit(8)
+        @snaps = query.limit(8).to_a + [fake] * (8 - query.size)
       end
     else
       if query.empty?
