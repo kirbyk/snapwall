@@ -54,7 +54,7 @@ var intro = function(){
 
     getSnap((function(index) {
       return function(snap) {
-        createImage($("#"+index),snap);
+        createImage($("#s"+index),snap);
         doNext(i + 1);
       }
     })(i));

@@ -63,12 +63,18 @@ html, body {
 
 @media (max-width: 1000px){
   .tile {
-    width: 33%;
+    width: 33.33%;
+  }
+  #s7,#s8{
+    display: none;
   }
 }
 
 @media (max-width: 640px){
   .tile {
     width: 50%;
+  }
+  #s5,#s6,#s7,#s8 {
+    display: none;
   }
 }
