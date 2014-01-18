@@ -1,2 +1,2 @@
 web: rails s -p $PORT
-worker: rake poll
+worker: rake jobs:work

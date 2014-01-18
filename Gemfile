@@ -30,3 +30,4 @@ end
 gem "snapcat", github: "rickbutton/snapcat"
 gem "foreman"
 gem "paperclip"
+gem 'delayed_job_active_record'
