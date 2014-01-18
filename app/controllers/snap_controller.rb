@@ -1,16 +1,13 @@
 class SnapController < ApplicationController
 
   def index
-    if params.has_key? :not
-      not_ids = params[:not].split(",")
-      query = Snap.where(
-        'created_at > ? AND id NOT IN (?)', 
-        THRESHOLD.ago, 
-        not_ids
-      )
-    else
-      query = Snap.where('created_at > ?', THRESHOLD.ago)
-    end
+    not_ids = ''
+    not_ids = params[:not].split(",") if params[:not]
+    query = Snap.where(
+      'created_at > ? AND id NOT IN (?)', 
+      THRESHOLD.ago, 
+      not_ids
+    )
 
     fake = FakeSnap.new("http://lorempixel.com/spencer/540/960/", 10)
     

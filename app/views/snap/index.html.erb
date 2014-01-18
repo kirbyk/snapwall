@@ -1,12 +1,28 @@
-<% count = 0 %>
-<% @snaps.each do |snap| %>
-  <%= "<div class='row'>".html_safe if count == 0 || count == 4 %>
-    <%= "<div class='tile' id='#{snap.id}'>".html_safe %>
-      <div class='time'>
-        <span><%= snap.duration %></span>
-      </div>
-    <%= image_tag (snap.image.url) %>
-    </div>
-  <%= "</div>".html_safe if count == 3 || count == 7 %>
-  <% count +=1 %>
-<% end %>
+<div class='row'>
+  <div class='tile' id='1'>
+    <div class='time'><span></span></div>
+  </div>
+  <div class='tile' id='2'>
+    <div class='time'><span></span></div>
+  </div>
+  <div class='tile' id='3'>
+    <div class='time'><span></span></div>
+  </div>
+  <div class='tile' id='4'>
+    <div class='time'><span></span></div>
+  </div>
+</div>
+<div class='row'>
+  <div class='tile' id='5'>
+    <div class='time'><span></span></div>
+  </div>
+  <div class='tile' id='6'>
+    <div class='time'><span></span></div>
+  </div>
+  <div class='tile' id='7'>
+    <div class='time'><span></span></div>
+  </div>
+  <div class='tile' id='8'>
+    <div class='time'><span></span></div>
+  </div>
+</div>
