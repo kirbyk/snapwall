@@ -15,18 +15,26 @@
 //= require turbolinks
 //= require_tree .
 
-$(function(){
+var getSnap = function(el, not){
+  console.log("hi");
+
   var request = $.ajax({
     url: "/snap.json",
     type: "GET",
-    data: { not : 12 }
+    data: { not : this.not }
   });
 
   request.done(function(response){
-    console.log(response);
-    console.log(response.url);
-    $('img').attr('src', response.url);
-    $('.time').html(response.duration);
+    // console.log(el.children('img').attr('src',response.url));
+    // console.log(el.children('.time').html(response.duration));
   });
+}
+
+$(function(){
+  
+  $('.image-wrapper:first').each(function(){
+    // Put the fucking timer here
+  });
+
 })
 

@@ -1,3 +1,4 @@
+<script src="http://countdownjs.org/countdown.min.js" type="text/javascript"></script>
 <% @snaps.each do |snap| %>
   <div class='image-wrapper'>
     <div class='time'>
