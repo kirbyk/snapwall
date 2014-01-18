@@ -22,12 +22,18 @@ var swapImage = function(el, snap){
   el.children('.time').children('span').html(snap.duration);
   el.children('img').attr('src',snap.url);
   countDown(el, snap.duration);
+
   var oldId = el.attr('data-id');
-  var oldIndex = imageIds.indexOf(parseInt(oldId));
-  if (oldIndex > -1) {
-    imageIds.splice(oldIndex, 1);
+
+  imageIds = $.grep(imageIds, function(value) {
+    return value != oldId;
+  });
+
+  var exists = imageIds.indexOf(snap.id);
+  if (snap.id != 0 && exists < 0) {
+    imageIds.push(snap.id);
   }
-  imageIds.push(snap.id);
+  
   el.attr('data-id',snap.id);
 }
 
@@ -53,7 +59,7 @@ var intro = function(){
     })(i)
     );
   }
-  doNext(0);
+  doNext(1);
 }
 
 var getSnap = function(callback){
