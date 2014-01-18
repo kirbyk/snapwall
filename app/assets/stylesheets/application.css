@@ -9,8 +9,10 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_self
+ *= require 'bootstrap'
  *= require_tree .
  */
+@import url(http://fonts.googleapis.com/css?family=Roboto);
 
 * {
   margin: 0;
@@ -55,6 +57,16 @@ html, body {
   right: 15px;
   float: right;
 
+}
+
+h2#myModalLabel {
+  font-weight: bold;
+  font-size: 3em;
+}
+
+.sxy {
+  color: rgba(231,203,76, 1);
+  text-shadow: 1px 4px 6px #3b3d40, 0 0 0 #000, 1px 4px 6px #3b3d40;
 }
 
 .time span {
