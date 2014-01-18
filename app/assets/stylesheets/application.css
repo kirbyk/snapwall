@@ -11,3 +11,21 @@
  *= require_self
  *= require_tree .
  */
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.image-wrapper {
+  width: 348px;
+  height: 356px;
+  overflow: hidden;
+  position: relative;
+  padding: 5px;
+  float: left;
+}
+
+.image-wrapper img {
+  width: 100%;
+}

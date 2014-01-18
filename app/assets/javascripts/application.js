@@ -14,3 +14,15 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
+
+var request = $.ajax({
+  url: "/snap",
+  type: "GET",
+  data: { not : 12 }
+});
+
+request.done(function(response){
+  console.log(response);
+  console.log(response.url);
+  $('img').attr('src', response.url);
+});
