@@ -28,6 +28,5 @@ class Poller
 end
 
 task :poll do
-  puts Rails.env
   Poller.new(ENV['USER'], ENV['PASS']).poll
 end
