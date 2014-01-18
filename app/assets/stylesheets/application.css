@@ -31,9 +31,12 @@ html, body {
   width: 25%;
   /* min-width: 250px; */
   height: 100%;
-  overflow: hidden;
+  /* overflow: hidden; */
   position: relative;
   float: left;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .tile img {

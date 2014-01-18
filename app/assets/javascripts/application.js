@@ -21,7 +21,8 @@ swapQueue = [];
 
 var swapImage = function(el, snap){
   el.children('.time').children('span').html(snap.duration);
-  el.children('img').attr('src',snap.url);
+  // el.children('img').attr('src',snap.url);
+  el.css("background-image", "url(" + snap.url + ")");
   countDown(el, snap.duration);
 
   var oldId = el.attr('data-id');
@@ -40,7 +41,8 @@ var swapImage = function(el, snap){
 
 var createImage = function(el, snap){
   el.children('.time').children('span').html(snap.duration);
-  el.append("<img src='" + snap.url + "'>");
+  // el.append("<img src='" + snap.url + "'>");
+  el.css("background-image", "url(" + snap.url + ")");
   el.attr('data-id', snap.id);
   imageIds.push(snap.id);
   countDown(el, snap.duration);
