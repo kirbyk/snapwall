@@ -38,7 +38,8 @@ class SnapController < ApplicationController
     snap.flags += 1
     snap.save
     binding.pry
-    if snap.flags == 10
+    if snap.flags >= 10
+      snap.destroy
       Blacklist.create(username: snap.username)
       Delayed::Job.enqueue BlacklistMessageJob.new(snap.username)
     end
