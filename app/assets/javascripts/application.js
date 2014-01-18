@@ -15,14 +15,18 @@
 //= require turbolinks
 //= require_tree .
 
-var request = $.ajax({
-  url: "/snap",
-  type: "GET",
-  data: { not : 12 }
-});
+$(function(){
+  var request = $.ajax({
+    url: "/snap.json",
+    type: "GET",
+    data: { not : 12 }
+  });
 
-request.done(function(response){
-  console.log(response);
-  console.log(response.url);
-  $('img').attr('src', response.url);
-});
+  request.done(function(response){
+    console.log(response);
+    console.log(response.url);
+    $('img').attr('src', response.url);
+    $('.time').html(response.duration);
+  });
+})
+
