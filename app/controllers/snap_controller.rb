@@ -15,7 +15,7 @@ class SnapController < ApplicationController
       )
     end
 
-    fake = FakeSnap.new("http://lorempixel.com/540/960/", 10)
+    fake = FakeSnap.new("http://dummyimage.com/540x960/000/fff", 10)
     
     if request.format == :json
       if query.empty?
