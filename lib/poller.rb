@@ -16,14 +16,17 @@ class Poller
     @client.fetch_updates
     snaps = @client.user.snaps_received
     snaps.each do |snap|
-      if blacklisted? snap.sender
-        send_blacklist_message(snap.sender)
-        continue
-      end
-
       unless snap.status.opened? || 
              snap.duration.nil? ||
              Snap.find_by(snap_id: snap.id)
+
+        if blacklisted? snap.sender 
+          puts "Going to send blacklist message"
+          send_blacklist_message(snap.sender)
+          @client.view snap.id
+          next
+        end
+
         puts "Sender: #{snap.sender}"
         puts "Duration: #{snap.duration}"
         puts "Id: #{snap.id}"
@@ -48,9 +51,10 @@ class Poller
   end
 
   def blacklisted?(username)
-    Blacklist.find_by(username: username).any?
+    Blacklist.find_by(username: username)
   end
 
-  def send_blacklist_mesage(username)
+  def send_blacklist_message(username)
+    Delayed::Job.enqueue BlacklistMessageJob.new(username)
   end
 end
