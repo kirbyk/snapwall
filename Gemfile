@@ -11,7 +11,7 @@ gem 'jbuilder', '~> 1.2'
 gem 'high_voltage'
 
 # RMagick for generating snaps we send
-gem "rmagick", "2.12.0", :require => 'RMagick'
+gem "rmagick", "2.13.2", :require => 'RMagick'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
