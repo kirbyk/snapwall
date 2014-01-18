@@ -94,6 +94,26 @@ button.close {
   opacity: 1;
 }
 
+.flag {
+  background-color: rgba(0,0,0,.65);
+  width: 40px;
+  height: 40px;
+  border-radius: 10%;
+  position: absolute;
+  text-align: center;
+  font-size: 1.5em;
+  bottom: 15px;
+  right: 15px;
+  float: right;
+}
+
+.flag span {
+  color: white;
+  opacity: .9;
+  position: relative;
+  top: 6px;
+}
+
 @media (max-width: 1000px){
   .tile {
     width: 33.33%;
