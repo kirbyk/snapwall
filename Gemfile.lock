@@ -1,3 +1,11 @@
+GIT
+  remote: git://github.com/rickbutton/snapcat.git
+  revision: 5653357dd345cfe201569de524aff00ced65cb58
+  specs:
+    snapcat (0.1.0)
+      httmultiparty (~> 0.3)
+      json (~> 1.6)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -39,6 +47,12 @@ GEM
     execjs (2.0.2)
     high_voltage (2.1.0)
     hike (1.2.3)
+    httmultiparty (0.3.10)
+      httparty (>= 0.7.3)
+      multipart-post
+    httparty (0.12.0)
+      json (~> 1.8)
+      multi_xml (>= 0.5.2)
     i18n (0.6.9)
     jbuilder (1.5.3)
       activesupport (>= 3.0.0)
@@ -53,6 +67,8 @@ GEM
     mime-types (1.25.1)
     minitest (4.7.5)
     multi_json (1.8.4)
+    multi_xml (0.5.5)
+    multipart-post (2.0.0)
     pg (0.17.1)
     polyglot (0.3.3)
     rack (1.5.2)
@@ -124,6 +140,7 @@ DEPENDENCIES
   rails_12factor
   sass-rails (~> 4.0.0)
   sdoc
+  snapcat!
   sqlite3
   turbolinks
   uglifier (>= 1.3.0)
