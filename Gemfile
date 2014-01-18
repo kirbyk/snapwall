@@ -31,8 +31,14 @@ group :production do
   gem 'rails_12factor'
 end
 
+group :staging do
+  gem 'pg'
+  gem 'rails_12factor'
+end
+
 gem "snapcat", github: "rickbutton/snapcat"
 gem "foreman"
 gem "paperclip"
 gem 'delayed_job_active_record'
 gem 'aws-sdk'
+
