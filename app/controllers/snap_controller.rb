@@ -37,7 +37,6 @@ class SnapController < ApplicationController
     snap = Snap.find(params[:id])
     snap.flags += 1
     snap.save
-    binding.pry
     if snap.flags >= 10
       snap.destroy
       Blacklist.create(username: snap.username)
