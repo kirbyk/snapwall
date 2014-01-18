@@ -17,6 +17,7 @@
 
 imageIds = [];
 numSnaps = 8;
+swapQueue = [];
 
 var swapImage = function(el, snap){
   el.children('.time').children('span').html(snap.duration);
@@ -56,8 +57,7 @@ var intro = function(){
         createImage($("#"+index),snap);
         doNext(i + 1);
       }
-    })(i)
-    );
+    })(i));
   }
   doNext(1);
 }
@@ -74,6 +74,20 @@ var getSnap = function(callback){
   });
 }
 
+var processQueue = function() {
+  if (swapQueue.length > 0) {
+      el = swapQueue.pop();
+      getSnap((function(tile) {
+        return function(snap) {
+          swapImage(tile, snap);
+          setTimeout(processQueue, 100);
+        }
+      })(el));
+    } else {
+      setTimeout(processQueue, 100);
+  }
+  }
+
 var countDown = function(el, duration){
     var imageWrapper = el;
     var timer = function() {
@@ -83,12 +97,7 @@ var countDown = function(el, duration){
         return;
       }
       if (time == 0){ 
-        getSnap((function(tile) {
-          return function(snap) {
-            swapImage(tile,snap);
-          }
-        })(imageWrapper)
-        );
+        swapQueue.push(el);
       }
       timeEl.html(time);
     }
@@ -101,6 +110,7 @@ var countDown = function(el, duration){
 
 $(function(){
   intro();
+  setTimeout(processQueue, 100);
   // ids = getIds();
 });
 
