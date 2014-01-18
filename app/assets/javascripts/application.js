@@ -15,35 +15,61 @@
 //= require turbolinks
 //= require_tree .
 
-var getTileId = function(el){
-  return el.attr('id');  
+imageIds = [];
+numSnaps = 8;
+
+var swapImage = function(el, snap){
+  el.children('.time').children('span').html(snap.duration);
+  el.children('img').attr('src',snap.url);
+  countDown(el, snap.duration);
+  var oldId = el.attr('data-id');
+  var oldIndex = imageIds.indexOf(parseInt(oldId));
+  if (oldIndex > -1) {
+    imageIds.splice(oldIndex, 1);
+  }
+  imageIds.push(snap.id);
+  el.attr('data-id',snap.id);
 }
 
-var getIds = function(){
-  arr = []
-  $('.tile').each(function(){
-    arr.push( getTileId($(this)) );
-  });
-  return arr.join(',');
+var createImage = function(el, snap){
+  el.children('.time').children('span').html(snap.duration);
+  el.append("<img src='" + snap.url + "'>");
+  el.attr('data-id', snap.id);
+  imageIds.push(snap.id);
+  countDown(el, snap.duration);
 }
 
-var getSnap = function(el, not){
+var intro = function(){
+  var doNext = function(i) { 
+    if (i > numSnaps) {
+      return;
+    }
+
+    getSnap((function(index) {
+      return function(snap) {
+        createImage($("#"+index),snap);
+        doNext(i + 1);
+      }
+    })(i)
+    );
+  }
+  doNext(0);
+}
+
+var getSnap = function(callback){
+  console.log(imageIds);
   var request = $.ajax({
-    url: "/snap.json",
-    type: "GET",
-    data: { not : ids }
+    url: "/snap.json?" + Math.floor(5004567800*Math.random()) + "&not=" + imageIds.join(","),
+    type: "GET"
   });
 
   request.done(function(response){
-    el.children('img').attr('src',response.url);
-    el.children('.time').children('span').html(response.duration);
-    countDown();
+    callback(response);
   });
 }
 
-var countDown = function(){
-  $('.tile').each(function(){
-    var imageWrapper = $(this);
+var countDown = function(el, duration){
+    var imageWrapper = el;
     var timer = function() {
       time=time-1;
       if (time < 0) {
@@ -51,20 +77,24 @@ var countDown = function(){
         return;
       }
       if (time == 0){ 
-        getSnap(imageWrapper, 12);
+        getSnap((function(tile) {
+          return function(snap) {
+            swapImage(tile,snap);
+          }
+        })(imageWrapper)
+        );
       }
       timeEl.html(time);
     }
     
     var timeEl = imageWrapper.children('.time').children('span');
-    var time = timeEl.html().trim();
+    var time = duration;
     var counter=setInterval(timer, 1000);
-  });
 }
 
 
 $(function(){
-  ids = getIds();
-  countDown();
+  intro();
+  // ids = getIds();
 });
 
