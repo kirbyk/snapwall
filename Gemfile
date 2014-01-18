@@ -6,7 +6,12 @@ gem 'coffee-rails', '~> 4.0.0'
 gem 'jquery-rails'
 gem 'turbolinks'
 gem 'jbuilder', '~> 1.2'
+
+# for static pages
 gem 'high_voltage'
+
+# RMagick for generating snaps we send
+gem "rmagick", "2.12.0", :require => 'RMagick'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
