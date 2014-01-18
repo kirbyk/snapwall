@@ -29,24 +29,24 @@ var swapImage = function(el, snap){
   
   setTimeout(function() {
     el.removeClass('animated ' + animation);
-  }, 1000);
+  }, 500);
   countDown(el, snap.duration);
 
   var oldId = el.attr('data-id');
 
+  console.log("removing old id " + oldId);
   imageIds = $.grep(imageIds, function(value) {
     return value != oldId;
   });
 
-  var exists = imageIds.indexOf(snap.id);
-  if (snap.id != 0 && exists < 0) {
+  if (snap.id != 0) {
+    console.log("adding new id " + snap.id);
     imageIds.push(snap.id);
   }
 }
 
 var createImage = function(el, snap){
   el.children('.time').children('span').html(snap.duration);
-  // el.append("<img src='" + snap.url + "'>");
   el.css("background-image", "url(" + snap.url + ")");
   el.attr('data-id', snap.id);
   imageIds.push(snap.id);
@@ -58,6 +58,7 @@ var intro = function(){
     if (i > numSnaps) {
       return;
     }
+    console.log("loading " + i);
 
     getSnap((function(index) {
       return function(snap) {
@@ -70,7 +71,7 @@ var intro = function(){
 }
 
 var getSnap = function(callback){
-  console.log(imageIds);
+console.log(imageIds);
   var request = $.ajax({
     url: "/snap.json?" + Math.floor(5004567800*Math.random()) + "&not=" + imageIds.join(","),
     type: "GET"
