@@ -43,6 +43,7 @@ var swapImage = function(el, snap){
     console.log("adding new id " + snap.id);
     imageIds.push(snap.id);
   }
+  el.attr('data-id', snap.id);
 }
 
 var createImage = function(el, snap){
