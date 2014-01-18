@@ -29,6 +29,7 @@ html, body {
 
 .tile {
   width: 25%;
+  /* min-width: 250px; */
   height: 100%;
   overflow: hidden;
   position: relative;
@@ -58,4 +59,16 @@ html, body {
   opacity: .9;
   position: relative;
   top: 6px;
+}
+
+@media (max-width: 1000px){
+  .tile {
+    width: 33%;
+  }
+}
+
+@media (max-width: 640px){
+  .tile {
+    width: 50%;
+  }
 }
