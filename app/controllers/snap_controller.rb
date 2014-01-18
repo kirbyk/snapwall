@@ -12,19 +12,19 @@ class SnapController < ApplicationController
       query = Snap.where('created_at > ?', THRESHOLD.ago)
     end
 
-    fake = FakeSnap.new("http://lorempixel.com/cymbaler/540/960/", 10)
+    fake = FakeSnap.new("http://lorempixel.com/spencer/540/960/", 10)
     
     if request.format == :html
       if query.empty?
         @snaps = [fake]*8
       else
-        @snaps = query.limit(8).to_a + [fake] * (8 - query.limit(8).size)
+        @snaps = query.order("RANDOM()").limit(8).to_a + [fake] * (8 - query.limit(8).size)
       end
     else
       if query.empty?
         @snap = fake
       else
-        @snap = query.first
+        @snap = query.order("RANDOM()").first
       end
     end
   end

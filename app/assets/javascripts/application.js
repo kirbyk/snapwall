@@ -15,36 +15,56 @@
 //= require turbolinks
 //= require_tree .
 
-var getSnap = function(el, not){
-  console.log("hi");
+var getTileId = function(el){
+  return el.attr('id');  
+}
 
+var getIds = function(){
+  arr = []
+  $('.tile').each(function(){
+    arr.push( getTileId($(this)) );
+  });
+  return arr.join(',');
+}
+
+var getSnap = function(el, not){
   var request = $.ajax({
     url: "/snap.json",
     type: "GET",
-    data: { not : this.not }
+    data: { not : ids }
   });
 
   request.done(function(response){
-    // console.log(el.children('img').attr('src',response.url));
-    // console.log(el.children('.time').html(response.duration));
+    el.children('img').attr('src',response.url);
+    el.children('.time').children('span').html(response.duration);
+    countDown();
   });
 }
 
-$(function(){
-  
-  $('.image-wrapper:first').each(function(){
+var countDown = function(){
+  $('.tile').each(function(){
+    var imageWrapper = $(this);
     var timer = function() {
       time=time-1;
-      if (time <= 0) {
+      if (time < 0) {
         clearInterval(counter);
-        //counter ended, do something here
         return;
       }
-      console.log(time);
+      if (time == 0){ 
+        getSnap(imageWrapper, 12);
+      }
+      timeEl.html(time);
     }
-
-    var time = $(this).children(".time").html().trim();
-    var counter=setInterval(timer, 1000); //1000 will  run it every 1 second
+    
+    var timeEl = imageWrapper.children('.time').children('span');
+    var time = timeEl.html().trim();
+    var counter=setInterval(timer, 1000);
   });
+}
+
+
+$(function(){
+  ids = getIds();
+  countDown();
 });
 
