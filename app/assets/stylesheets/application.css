@@ -29,6 +29,14 @@ html, body {
   height: 33.33%;
 }
 
+span.glyphicon-question-sign {
+  color: white;
+  font-size: 2em;
+  position: absolute;
+  bottom: 15px;
+  left: 5px;
+}
+
 div.tile {
   -webkit-touch-callout: none;
   -webkit-user-select: none;
