@@ -39,15 +39,17 @@ class Poller
             duration: snap.duration,
             snap_id: snap.id,
             base64: base64
-          }.to_json
+          }
           uri = URI.parse(@host)
           http = Net::HTTP.new(uri.host, uri.port)
           request = Net::HTTP::Post.new(@path)
           request.add_field('Content-Type', 'application/json')
-          request.body = hash
+          request.body = hash.to_json
           response = http.request(request)
           if response.code == "200"
             @client.view snap.id
+          else
+            puts response
           end
         end
       end
