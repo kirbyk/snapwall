@@ -16,9 +16,7 @@ class Cleaner
     )
     snaps.each do |snap|
       puts "Cleaning snap from #{snap.username}"
-      image_data =  ImageGenerator.new(
-        "Your snap has made Best Of for getting #{snap.likes} likes!"
-      ).generate
+      image_data =  ImageGenerator.new(snap.likes).generate
       @client.send_media(image_data, snap.username, view_duration: 10)
 
       snap.sent_best_of = true
