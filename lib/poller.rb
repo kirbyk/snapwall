@@ -48,6 +48,7 @@ class Poller
   rescue Exception => e
     STDERR.puts e.message
     STDERR.puts e.backtrace.join("\n")
+    sleep 2
   end
 
   def blacklisted?(username)
