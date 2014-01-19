@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/rickbutton/snapcat.git
-  revision: 9a7ff0b1004a9cfcb96e6cd3b82924ba1b763454
+  revision: f094f15da4a6d213b4f420afe8067d05ad53162a
   specs:
     snapcat (0.1.0)
       httmultiparty (~> 0.3)
