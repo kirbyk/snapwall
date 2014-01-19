@@ -7,5 +7,10 @@ class BlacklistMessageJob < Struct.new(:username)
     @client.login(ENV['PASS'])
     image_data = BlacklistImageGenerator.new.generate
     @client.send_media(image_data, username, view_duration: 10)
+    
+    # rick roll
+    #file = File.open(File.join(Rails.root, "RickRoll.mp4"), "rb")
+    #contents = file.read
+    #@client.send_media(contents, username, type: 1)
   end
 end
