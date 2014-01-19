@@ -1,7 +1,7 @@
 require "./lib/poller"
 
 task poll: :environment do
-  Poller.new(ENV['USER'], ENV['PASS'], ENV['HOST'], ENV['PATH'])
+  Poller.new(ENV['USER'], ENV['PASS'], ENV['HOST'], ENV['UPATH']).poll
 end
 
 task clean: :environment do

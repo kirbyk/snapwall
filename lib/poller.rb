@@ -1,4 +1,5 @@
 require "base64"
+require "json"
 
 class Poller
 
@@ -16,43 +17,46 @@ class Poller
     @client.login(@pass)
     puts "Logged in!"
 
-    puts "Fetching updates"
-    @client.fetch_updates
-    snaps = @client.user.snaps_received
-    snaps.each do |snap|
-      unless snap.status.opened? || 
-             snap.duration.nil?
+    while true
+      puts "Fetching updates"
+      @client.fetch_updates
+      snaps = @client.user.snaps_received
+      snaps.each do |snap|
+        unless snap.status.opened? || 
+          snap.duration.nil?
 
-        puts "Sender: #{snap.sender}"
-        puts "Duration: #{snap.duration}"
-        puts "Id: #{snap.id}"
-        puts
-        media_response = @client.media_for(snap.id)
-        media = media_response.data[:media]
-        continue unless media_response.success?
-        raw_bytes = media.to_s
-        base64 = Base64.encode(raw_bytes)
-        hash = {
-          username: snap.sender,
-          duration: snap.duration,
-          snap_id: snap.id,
-          base64: base64
-        }
-        uri = URI.parse(@host)
-        http = Net::HTTP.new(uri.host, uri.port)
-        request = Net::HTTP::Post.new(@path)
-        request.add_field('Content-Type', 'application/json')
-        request.body = hash
-        response = http.request(request)
-        if response.code == "200"
-          @client.view snap.id
+          puts "Sender: #{snap.sender}"
+          puts "Duration: #{snap.duration}"
+          puts "Id: #{snap.id}"
+          puts
+          media_response = @client.media_for(snap.id)
+          media = media_response.data[:media]
+          continue unless media_response.success?
+          raw_bytes = media.to_s
+          base64 = Base64.encode64(raw_bytes)
+          hash = {
+            username: snap.sender,
+            duration: snap.duration,
+            snap_id: snap.id,
+            base64: base64
+          }.to_json
+          uri = URI.parse(@host)
+          http = Net::HTTP.new(uri.host, uri.port)
+          request = Net::HTTP::Post.new(@path)
+          request.add_field('Content-Type', 'application/json')
+          request.body = hash
+          response = http.request(request)
+          if response.code == "200"
+            @client.view snap.id
+          end
         end
       end
+      sleep 2
     end
-    sleep 2
-  rescue Exception => e
-    STDERR.puts e.message
-    STDERR.puts e.backtrace.join("\n")
-    sleep 2
+    rescue Exception => e
+      STDERR.puts e.message
+      STDERR.puts e.backtrace.join("\n")
+      sleep 2
+      poll
+    end
   end
-end
