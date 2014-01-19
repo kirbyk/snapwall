@@ -1,2 +1,2 @@
-THRESHOLD = 130.minutes
+THRESHOLD = 20.minutes
 BESTOF_THRESHOLD = 30
