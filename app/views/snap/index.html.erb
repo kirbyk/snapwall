@@ -14,10 +14,12 @@
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
         <h2 class="modal-title sxy" id="myModalLabel">Welcome to Snapwall!</h2>
       </div>
-      <div class="modal-body">
-        <h3>1) Add <%= "#{ENV['USER']}" %> on Snapchat</h3>
-        <h3>2) Send a cool picture to <%= "#{ENV['USER']}" %> on Snapchat</h3>
-        <h3>3) Check out the <%= link_to 'Frontpage', root_path, class: 'sxy' %> and <a class='sxy' href="#">Snapwall Best-Of</a></h3>
+      <div class="modal-body text-center">
+        <h3>SnapWall is a tiled wall of new and constantly updating Snapchat snaps.</h3>
+        <h3>Send snaps to '<%= "#{ENV['USER']}" %>' to see them displayed here instantly!</h3>
+        <h3>Snaps are shown for the duration specified in Snapchat and are deleted after 30 minutes.</h3>
+        <br>
+        <h3>Check out the sidebar on the left for more information and a link to the SnapWall best-of!</h3>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
