@@ -20,8 +20,6 @@
 imageIds = [];
 numSnaps = 12;
 swapQueue = [];
-// animations = ['flipInX', 'flipInY'];
-// animations = ['fadeIn'];
 animations = ['fadeIn','fadeInDown','fadeInRight'];
 
 var swapImage = function(el, snap){
@@ -30,6 +28,8 @@ var swapImage = function(el, snap){
   animation = animations[Math.floor(Math.random() * animations.length)];
   el.addClass('animated ' + animation);
   el.children("div.flag").children("span").removeClass("flagged");
+  el.removeClass("liked");
+  el.children("div.like").remove();
   
   setTimeout(function() {
     el.removeClass('animated ' + animation);
@@ -142,9 +142,33 @@ var setupFlags = function() {
   });
 }
 
+var setupLikes = function() {
+  $("div.tile").dblclick(function() {
+    if (!$(this).hasClass("liked")) {
+      var id = $(this).attr("data-id");
+      $.ajax({
+          url: "/snap/" + id + "/like",
+          type: "GET"
+      });
+
+      $(this).addClass("liked");
+      $(this).append("<div class='like animated fadeIn'><span class='glyphicon glyphicon-heart'></span></div>");
+      var thiz = $(this).children("div.like");
+      setTimeout(function() {
+        $(thiz).removeClass("animated fadeIn");
+        $(thiz).addClass("animated fadeOut");
+        setTimeout(function() {
+          thiz.remove();
+        }, 500);
+      }, 1000)
+    }
+  });
+}
+
 $(function(){
   modal();
   setupFlags();
+  setupLikes();
   intro();
   setTimeout(processQueue, 100);
 });

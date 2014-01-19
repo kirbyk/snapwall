@@ -1,8 +1,13 @@
+require "base64"
+require "json"
+
 class Poller
 
-  def initialize(user, pass)
+  def initialize(user, pass, host, path)
     @user = user
     @pass = pass
+    @host = host
+    @path = path
   end
 
   def poll
@@ -12,49 +17,48 @@ class Poller
     @client.login(@pass)
     puts "Logged in!"
 
-    puts "Fetching updates"
-    @client.fetch_updates
-    snaps = @client.user.snaps_received
-    snaps.each do |snap|
-      unless snap.status.opened? || 
-             snap.duration.nil? ||
-             Snap.find_by(snap_id: snap.id)
+    while true
+      puts "Fetching updates"
+      @client.fetch_updates
+      snaps = @client.user.snaps_received
+      snaps.each do |snap|
+        unless snap.status.opened? || 
+          snap.duration.nil?
 
-        if blacklisted? snap.sender 
-          puts "Going to send blacklist message"
-          send_blacklist_message(snap.sender)
-          @client.view snap.id
-          next
-        end
-
-        puts "Sender: #{snap.sender}"
-        puts "Duration: #{snap.duration}"
-        puts "Id: #{snap.id}"
-        puts
-        media_response = @client.media_for(snap.id)
-        media = media_response.data[:media]
-        continue unless media_response.success?
-        raw_bytes = media.to_s
-        s = Snap.new(username: snap.sender, duration: snap.duration, snap_id: snap.id)
-        s.image_bytes = raw_bytes
-        s.image_name = "#{snap.id}.jpg"
-        s.image_content_type = "image/jpeg"
-        if s.save
-          @client.view snap.id
+          puts "Sender: #{snap.sender}"
+          puts "Duration: #{snap.duration}"
+          puts "Id: #{snap.id}"
+          puts
+          media_response = @client.media_for(snap.id)
+          media = media_response.data[:media]
+          continue unless media_response.success?
+          raw_bytes = media.to_s
+          base64 = Base64.encode64(raw_bytes)
+          hash = {
+            username: snap.sender,
+            duration: snap.duration,
+            snap_id: snap.id,
+            base64: base64
+          }
+          uri = URI.parse(@host)
+          http = Net::HTTP.new(uri.host, uri.port)
+          request = Net::HTTP::Post.new(@path)
+          request.add_field('Content-Type', 'application/json')
+          request.body = hash.to_json
+          response = http.request(request)
+          if response.code == "200"
+            @client.view snap.id
+          else
+            puts response
+          end
         end
       end
+      sleep 2
     end
-    sleep 2
-  rescue Exception => e
-    STDERR.puts e.message
-    STDERR.puts e.backtrace.join("\n")
+    rescue Exception => e
+      STDERR.puts e.message
+      STDERR.puts e.backtrace.join("\n")
+      sleep 2
+      poll
+    end
   end
-
-  def blacklisted?(username)
-    Blacklist.find_by(username: username)
-  end
-
-  def send_blacklist_message(username)
-    Delayed::Job.enqueue BlacklistMessageJob.new(username)
-  end
-end

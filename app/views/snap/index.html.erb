@@ -1,3 +1,4 @@
+<div style="background-color: red"></div>
 <div class='tiles'>
   <% (1..12).each do |i| %>
     <%= "<div class='tile' id='s#{i}'>".html_safe %>
@@ -5,7 +6,9 @@
       <div class='flag'><span class='glyphicon glyphicon-flag'></span></div>
     </div>
   <% end %>
+  <div class="question"><span data-toggle="modal" data-target="#myModal" class="glyphicon glyphicon-question-sign"></span></div>
 </div>
+
 
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -19,7 +22,9 @@
         <h3>Send snaps to '<%= "#{ENV['USER']}" %>' to see them displayed here instantly!</h3>
         <h3>Snaps are shown for the duration specified in Snapchat and are deleted after 30 minutes.</h3>
         <br>
-        <h3>Check out the sidebar on the left for more information and a link to the SnapWall best-of!</h3>
+        <p style="text-align: center">
+          Created with love by Rick Button, Scott Opell, Kirby Kohlmorgen, and Spencer Brown for MHacks 2014. Boiler UP!
+        </p>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
