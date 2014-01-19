@@ -1,8 +1,12 @@
+require "base64"
+
 class Poller
 
-  def initialize(user, pass)
+  def initialize(user, pass, host, path)
     @user = user
     @pass = pass
+    @host = host
+    @path = path
   end
 
   def poll
@@ -17,15 +21,7 @@ class Poller
     snaps = @client.user.snaps_received
     snaps.each do |snap|
       unless snap.status.opened? || 
-             snap.duration.nil? ||
-             Snap.find_by(snap_id: snap.id)
-
-        if blacklisted? snap.sender 
-          puts "Going to send blacklist message"
-          send_blacklist_message(snap.sender)
-          @client.view snap.id
-          next
-        end
+             snap.duration.nil?
 
         puts "Sender: #{snap.sender}"
         puts "Duration: #{snap.duration}"
@@ -35,11 +31,20 @@ class Poller
         media = media_response.data[:media]
         continue unless media_response.success?
         raw_bytes = media.to_s
-        s = Snap.new(username: snap.sender, duration: snap.duration, snap_id: snap.id)
-        s.image_bytes = raw_bytes
-        s.image_name = "#{snap.id}.jpg"
-        s.image_content_type = "image/jpeg"
-        if s.save
+        base64 = Base64.encode(raw_bytes)
+        hash = {
+          username: snap.sender,
+          duration: snap.duration,
+          snap_id: snap.id,
+          base64: base64
+        }
+        uri = URI.parse(@host)
+        http = Net::HTTP.new(uri.host, uri.port)
+        request = Net::HTTP::Post.new(@path)
+        request.add_field('Content-Type', 'application/json')
+        request.body = hash
+        response = http.request(request)
+        if response.code == "200"
           @client.view snap.id
         end
       end
@@ -49,13 +54,5 @@ class Poller
     STDERR.puts e.message
     STDERR.puts e.backtrace.join("\n")
     sleep 2
-  end
-
-  def blacklisted?(username)
-    Blacklist.find_by(username: username)
-  end
-
-  def send_blacklist_message(username)
-    Delayed::Job.enqueue BlacklistMessageJob.new(username)
   end
 end

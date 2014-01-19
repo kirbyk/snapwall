@@ -1,5 +1,7 @@
+require "./lib/poller"
+
 task poll: :environment do
-  Delayed::Job.enqueue PollJob.new
+  Poller.new(ENV['USER'], ENV['PASS'], ENV['HOST'], ENV['PATH'])
 end
 
 task clean: :environment do
