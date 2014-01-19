@@ -137,7 +137,7 @@ var setupFlags = function() {
           type: "GET"
       })
       $(this).children("span").addClass("flagged")
-      swapQueue.push($(this));
+      swapQueue.push($(this).parent());
     }
   });
 }
