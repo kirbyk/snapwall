@@ -18,9 +18,9 @@
 //= require_tree .
 
 imageIds = [];
-numSnaps = 8;
+numSnaps = 12;
 swapQueue = [];
-animations = ['flipInX', 'flipInY'];
+animations = ['fadeIn','fadeInDown','fadeInRight'];
 
 var swapImage = function(el, snap){
   el.children('.time').children('span').html(snap.duration);
@@ -137,6 +137,7 @@ var setupFlags = function() {
           type: "GET"
       })
       $(this).children("span").addClass("flagged")
+      swapQueue.push($(this));
     }
   });
 }

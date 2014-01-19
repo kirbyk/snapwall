@@ -20,13 +20,13 @@
 }
 
 html, body {
-  background-color: black;
+  background-color: gray !important;
   height: 100%;
 }
 
 .tiles {
   width: 100%;
-  height: 50%;
+  height: 33.33%;
 }
 
 div.tile {
@@ -37,18 +37,12 @@ div.tile {
   -ms-user-select: none;
   user-select: none;
   width: 25%;
-  /* min-width: 250px; */
   height: 100%;
-  /* overflow: hidden; */
   position: relative;
   float: left;
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
-}
-
-.tile img {
-  width: 100%;
 }
 
 .time {
@@ -79,7 +73,7 @@ h2#myModalLabel {
   color: white;
   opacity: .9;
   position: relative;
-  top: 6px;
+  top: 5px;
 }
 
 div.modal-content {

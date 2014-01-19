@@ -1,36 +1,10 @@
 <div class='tiles'>
-  <div class='tile' id='s1'>
-    <div class='time'><span></span></div>
-    <div class='flag'><span class='glyphicon glyphicon-flag'></span></div>
-  </div>
-  <div class='tile' id='s2'>
-    <div class='time'><span></span></div>
-    <div class='flag'><span class='glyphicon glyphicon-flag'></span></div>
-  </div>
-  <div class='tile' id='s3'>
-    <div class='time'><span></span></div>
-    <div class='flag'><span class='glyphicon glyphicon-flag'></span></div>
-  </div>
-  <div class='tile' id='s4'>
-    <div class='time'><span></span></div>
-    <div class='flag'><span class='glyphicon glyphicon-flag'></span></div>
-  </div>
-  <div class='tile' id='s5'>
-    <div class='time'><span></span></div>
-    <div class='flag'><span class='glyphicon glyphicon-flag'></span></div>
-  </div>
-  <div class='tile' id='s6'>
-    <div class='time'><span></span></div>
-    <div class='flag'><span class='glyphicon glyphicon-flag'></span></div>
-  </div>
-  <div class='tile' id='s7'>
-    <div class='time'><span></span></div>
-    <div class='flag'><span class='glyphicon glyphicon-flag'></span></div>
-  </div>
-  <div class='tile' id='s8'>
-    <div class='time'><span></span></div>
-    <div class='flag'><span class='glyphicon glyphicon-flag'></span></div>
-  </div>
+  <% (1..12).each do |i| %>
+    <%= "<div class='tile' id='s#{i}'>".html_safe %>
+      <div class='time'><span></span></div>
+      <div class='flag'><span class='glyphicon glyphicon-flag'></span></div>
+    </div>
+  <% end %>
 </div>
 
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
