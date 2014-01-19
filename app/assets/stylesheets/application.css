@@ -20,7 +20,7 @@
 }
 
 html, body {
-  background-color: gray;
+  background-color: black;
   height: 100%;
 }
 
@@ -29,7 +29,13 @@ html, body {
   height: 50%;
 }
 
-.tile {
+div.tile {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
   width: 25%;
   /* min-width: 250px; */
   height: 100%;
@@ -116,6 +122,17 @@ button.close {
 
 .flag span:hover {
   color: #c0392b;
+}
+
+div.like {
+  text-align: center;
+  color: white;
+  font-size: 150px;
+  margin-top: 25%;
+  -webkit-animation-duration: 0.5s;
+  -o-animation-duration: 0.5s;
+  animation-duration: 0.5s;
+  -moz-animation-duration: 0.5s;
 }
 
 span.flagged {
