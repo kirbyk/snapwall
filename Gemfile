@@ -42,5 +42,5 @@ gem "snapcat", github: "rickbutton/snapcat"
 gem "foreman"
 gem "paperclip"
 gem 'delayed_job_active_record'
-gem 'aws-sdk'
+gem 'aws-sdk', '>= 1.32.0'
 gem 'newrelic_rpm'
