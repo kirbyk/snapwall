@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-gem 'rails', '4.0.1'
+gem 'rails', '5.2.8.1'
 gem 'sass-rails', '~> 4.0.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.0.0'
@@ -41,6 +41,6 @@ end
 gem "snapcat", github: "rickbutton/snapcat"
 gem "foreman"
 gem "paperclip"
-gem 'delayed_job_active_record'
+gem 'delayed_job_active_record', '>= 4.1.3'
 gem 'aws-sdk'
 gem 'newrelic_rpm'
