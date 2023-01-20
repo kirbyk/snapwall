@@ -1,11 +1,11 @@
 source 'https://rubygems.org'
-gem 'rails', '4.0.1'
-gem 'sass-rails', '~> 4.0.0'
+gem 'rails', '6.1.7.1'
+gem 'sass-rails', '~> 5.0.8'
 gem 'uglifier', '>= 1.3.0'
-gem 'coffee-rails', '~> 4.0.0'
-gem 'jquery-rails'
+gem 'coffee-rails', '~> 4.2.2'
+gem 'jquery-rails', '>= 4.0.1'
 gem 'turbolinks'
-gem 'jbuilder', '~> 1.2'
+gem 'jbuilder', '~> 1.5', '>= 1.5.3'
 gem 'jquery-cookie-rails'
 gem 'bootstrap-sass', '~> 3.0.3.0'
 
@@ -41,6 +41,6 @@ end
 gem "snapcat", github: "rickbutton/snapcat"
 gem "foreman"
 gem "paperclip"
-gem 'delayed_job_active_record'
+gem 'delayed_job_active_record', '>= 4.1.5'
 gem 'aws-sdk'
 gem 'newrelic_rpm'
