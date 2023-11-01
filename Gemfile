@@ -13,7 +13,7 @@ gem 'bootstrap-sass', '~> 3.0.3.0'
 gem 'high_voltage'
 
 # RMagick for generating snaps we send
-gem "rmagick", "2.13.2", :require => 'RMagick'
+gem "rmagick", "5.3.0", :require => 'RMagick'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
