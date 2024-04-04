@@ -1,10 +1,10 @@
 source 'https://rubygems.org'
-gem 'rails', '4.0.1'
-gem 'sass-rails', '~> 4.0.0'
+gem 'rails', '7.0.8.1'
+gem 'sass-rails', '~> 5.0.8'
 gem 'uglifier', '>= 1.3.0'
-gem 'coffee-rails', '~> 4.0.0'
-gem 'jquery-rails'
-gem 'turbolinks'
+gem 'coffee-rails', '~> 4.2.2'
+gem 'jquery-rails', '>= 4.0.1'
+gem 'turbolinks', '>= 2.2.1'
 gem 'jbuilder', '~> 1.2'
 gem 'jquery-cookie-rails'
 gem 'bootstrap-sass', '~> 3.0.3.0'
@@ -17,7 +17,7 @@ gem "rmagick", "2.13.2", :require => 'RMagick'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
-  gem 'sdoc', require: false
+  gem 'sdoc', '>= 1.0.0', require: false
 end
 
 group :development do
@@ -42,5 +42,5 @@ gem "snapcat", github: "rickbutton/snapcat"
 gem "foreman"
 gem "paperclip"
 gem 'delayed_job_active_record'
-gem 'aws-sdk'
+gem 'aws-sdk', '>= 1.33.0'
 gem 'newrelic_rpm'
